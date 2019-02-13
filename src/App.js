@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import FullWidthTabs from '../src/components/SmsType';
+import Country from '../src/components/countries';
+import Calculator from '../src/components/Calculator';
+import RangeSelector from '../src/components/RangeSelector';
+
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+        <p>Please enter values to calculate pricing</p>
+          <Country />
+          <RangeSelector />
+          <Calculator />
+          <div style= {{ position: 'static',padding: '100px' }}>
+          <FullWidthTabs/>
+          </div>
         </header>
       </div>
     );
