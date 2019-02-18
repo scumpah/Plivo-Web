@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/lab/Slider';
 import Typography from '@material-ui/core/Typography';
+import * as StoreSMSCount from '../actions/index';
 
 
 const styles = {
@@ -19,9 +21,13 @@ class StepSlider extends React.Component {
     value: 200,
   };
 
+  componentDidMount() {
+    this.props.dispatch(StoreSMSCount.storeSMSCount(200));
+  }
   handleChange = (event, value) => {
     this.setState({ value });
-    // make network call
+    this.props.dispatch(StoreSMSCount.storeSMSCount(value));
+    this.props.dispatch(StoreSMSCount.calculatePricing());
   };
 
   render() {
@@ -45,9 +51,14 @@ class StepSlider extends React.Component {
     );
   }
 }
-
-StepSlider.propTypes = {
+const mapStateToProps = state => ({
   classes: PropTypes.object.isRequired,
-};
+  dispatch: PropTypes.func,
+  smsCount: state.smsCount,
+})
 
-export default withStyles(styles)(StepSlider);
+const StepSliderD = withStyles(styles, { withTheme: true })(
+  StepSlider);
+
+export default connect(
+  mapStateToProps)(StepSliderD);

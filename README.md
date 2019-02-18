@@ -11,11 +11,15 @@ Countries,
 Pricing,
 RangeSelector,
 SmsType
+MessageInfoView
 
 Actions:
 index
 
 Reducers:
 showPricing
+smsCount
+smsType
+smsData
 
 

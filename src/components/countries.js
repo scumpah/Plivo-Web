@@ -1,15 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from 'material-ui/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
 import SelectField from 'material-ui/SelectField';	
 import axios from 'axios';
-
-import { showPricing } from '../actions';
+import * as TogglePricingAction from '../actions/index';
 
 const styles = theme => ({
   root: {
@@ -25,7 +21,7 @@ const styles = theme => ({
   },
 });
 
-class SimpleSelect extends React.Component {
+class Countries extends React.Component {
   state = {
     age: '',
     name: 'hai',
@@ -40,26 +36,27 @@ class SimpleSelect extends React.Component {
   };
 
   componentDidMount() {
-    axios.get('http://localhost:3000/api/country')
-    .then(countries => 
-        this.setState({countries}
-        ))
+    axios.get('http://localhost:4000/api/country').then(countries => 
+        {
+        this.setState({countries: countries.data});
+        if(countries.data.length > 0) {
+        this.setState({ countryCode: countries.data[0].countryCode });
+        this.props.dispatch(TogglePricingAction.storeCountry(countries.data[0].countryCode));
+        this.props.dispatch(TogglePricingAction.togglePricing(false));
+        }
+      })
   }
 
   handleChange = value => {
     this.setState({ countryCode: value });
-    this.state.countries.forEach(country => {
-        if(country.countryCode === value)
-        this.setState({countryName: country.countryName});
-    });
+    this.props.dispatch(TogglePricingAction.togglePricing(false));
+    this.props.dispatch(TogglePricingAction.storeCountry(value));
   };
 
   render() {
-    const { classes } = this.props;
-
     return (
           <SelectField
-            value={this.state.countryName}
+            value={this.state.countryCode}
             onChange={(evt, index, value) => this.handleChange(value)}
             style={{width: '200px'}}
           >
@@ -72,21 +69,13 @@ class SimpleSelect extends React.Component {
   }
 }
 const mapStateToProps = state => ({
-    showPricing: state.showPricing,
+    dispatch: PropTypes.func,
+    showPricing: state.CountryReducer.showPricing,
     classes: PropTypes.object.isRequired,
   })
   
-  const mapDispatchToProps = dispatch => ({
-    showPricing: value => dispatch(showPricing(value))
-  })
-  
-  const SimpleSelectD = withStyles(styles, { withTheme: true })(
-    SimpleSelect);
+  const CountriesD = withStyles(styles, { withTheme: true })(
+    Countries);
   
   export default connect(
-    mapStateToProps, mapDispatchToProps)(SimpleSelectD);
-
-//   export default connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-//   )(withStyles(styles(SimpleSelect)));
+    mapStateToProps)(CountriesD);

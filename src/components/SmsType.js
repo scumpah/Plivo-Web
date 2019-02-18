@@ -7,6 +7,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Pricing from './Pricing';
+import { connect } from 'react-redux'
+import * as storeSMSTypeAction from '../actions/index';
+
 
 function TabContainer({ children, dir }) {
   return (
@@ -35,10 +38,15 @@ class FullWidthTabs extends React.Component {
 
   handleChange = (event, value) => {
     this.setState({ value });
+    this.props.dispatch(storeSMSTypeAction.storeSMSType(value));
+    this.props.dispatch(storeSMSTypeAction.calculatePricing());
   };
 
   handleChangeIndex = index => {
     this.setState({ value: index });
+    this.props.dispatch(storeSMSTypeAction.storeSMSType(index));
+    this.props.dispatch(storeSMSTypeAction.calculatePricing());
+
   };
 
   render() {
@@ -46,7 +54,9 @@ class FullWidthTabs extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" color="default">
+            {this.props.showPricing ?
+            <div>
+              <AppBar position="static" color="default">
           <Tabs
             value={this.state.value}
             onChange={this.handleChange}
@@ -64,18 +74,26 @@ class FullWidthTabs extends React.Component {
           index={this.state.value}
           onChangeIndex={this.handleChangeIndex}
         >
-          <TabContainer dir={theme.direction}><Pricing value={this.state.value}/></TabContainer>
-          <TabContainer dir={theme.direction}><Pricing value={this.state.value}/></TabContainer>
-          <TabContainer dir={theme.direction}><Pricing value={this.state.value}/></TabContainer>
+          <TabContainer dir={theme.direction}><Pricing /></TabContainer>
+          <TabContainer dir={theme.direction}><Pricing /></TabContainer>
+          <TabContainer dir={theme.direction}><Pricing /></TabContainer>
         </SwipeableViews>
+            </div> : null}
+
+      
       </div>
     );
   }
 }
-
-FullWidthTabs.propTypes = {
+const mapStateToProps = state => ({
+  dispatch: PropTypes.func,
+  showPricing: state.CountryReducer.showPricing,
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
-};
+})
 
-export default withStyles(styles, { withTheme: true })(FullWidthTabs);
+const FullWidthTabsD = withStyles(styles, { withTheme: true })(
+  FullWidthTabs);
+
+export default connect(
+  mapStateToProps)(FullWidthTabsD);

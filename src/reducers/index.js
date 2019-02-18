@@ -1,6 +1,15 @@
 import { combineReducers } from 'redux'
-import showPricing from './showPricing'
+import CountryReducer from './showPricing'
+import SMSCountReducer from './smsCount'
+import SMSDataReducer from './smsData'
+import SMSTypeReducer from './smsType'
+
+
+
 
 export default combineReducers({
-    showPricing,
+    CountryReducer,
+    SMSCountReducer,
+    SMSDataReducer,
+    SMSTypeReducer
 })

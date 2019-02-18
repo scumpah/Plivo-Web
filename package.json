@@ -5,16 +5,23 @@
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "@material-ui/lab": "^3.0.0-alpha.30",
+    "@material-ui/styles": "^4.0.0-alpha.0",
     "axios": "^0.18.0",
     "contentful": "^7.3.0",
+    "lodash": "^4.17.11",
     "material-ui": "^0.20.2",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-redux": "^6.0.0",
+    "react-router": "^4.3.1",
+    "react-router-redux": "^4.0.8",
     "react-scripts": "2.1.5",
     "react-swipeable-views": "^0.13.1",
     "react-tap-event-plugin": "^3.0.3",
     "redux": "^4.0.1",
+    "redux-act": "^1.7.4",
+    "redux-logger": "^3.0.6",
+    "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
