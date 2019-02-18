@@ -51,7 +51,7 @@ class MessagesInfoView extends Component {
                         
                     </Typography>
                     <Typography className={classes.title} color="textSecondary" gutterBottom component="h2">
-                        {this.state.currency}{this.props.price}
+                        {this.state.currency}  {parseInt(this.props.price)}
                     </Typography>
                     <Typography className={classes.title} color="textSecondary" gutterBottom component="p">
                         estimated cost
