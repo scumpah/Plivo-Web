@@ -43,14 +43,15 @@ class MessagesInfoView extends Component {
         const { classes } = this.props;
 
         return (
-            <Card className={classes.card}>
+            <Card className={classes.card} style={{backgroundColor: '#4b98e642'}}>
                 <CardContent>
                     <Typography className={classes.title} color="textSecondary" gutterBottom component="p">
                         
                                 {this.props.text} messages at
                         
                     </Typography>
-                    <Typography className={classes.title} color="textSecondary" gutterBottom component="h2">
+                    <Typography className={classes.title} color="textSecondary" gutterBottom component="h2"
+                    style={{fontSize: '20px', color:'#040692'}}>
                         {this.state.currency}  {parseInt(this.props.price)}
                     </Typography>
                     <Typography className={classes.title} color="textSecondary" gutterBottom component="p">

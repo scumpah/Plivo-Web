@@ -12,11 +12,11 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-        <p>Please enter values to calculate pricing</p>
+        <p style={{fontSize: '25px', color:'#040692'}}>Please enter values to calculate pricing</p>
           <Country />
           <RangeSelector />
           <Calculator />
-          <div style= {{ position: 'static',padding: '100px' }}>
+          <div style= {{ position: 'static',padding: '50px' }}>
           <FullWidthTabs/>
           </div>
         </header>

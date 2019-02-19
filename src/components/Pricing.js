@@ -27,13 +27,13 @@ function renderBoth(props) {
         <Grid item xs={12} sm={6}>
         <MessagesInfoView
         countryCode={props.smsData.length > 0 && props.smsData[0].countryCode}
-        price={props.smsData.length > 0  && props.smsData[0].outboundSmsPrice}
+        price={props.smsData.length > 0  ? props.smsData[0].outboundSmsPrice : 0}
         text='Send' value={props.value}/>
         </Grid>
         <Grid item xs={12} sm={6}>
         <MessagesInfoView
                 countryCode={props.smsData.length > 0  && props.smsData[0].countryCode}
-        price={props.smsData && props.smsData.length > 0  && props.smsData[0].inboundSmsPrice}
+        price={props.smsData && props.smsData.length > 0  ? props.smsData[0].inboundSmsPrice : 0}
         text='Recieve' value={props.value}/>
         </Grid>
         </Grid>
@@ -51,7 +51,7 @@ function renderBoth(props) {
         <Grid item xs={24} sm={12}>
         <MessagesInfoView
         countryCode={props.smsData.length > 0  && props.smsData[0].countryCode}
-        price={props.smsData.length > 0  && props.smsData[0].inboundSmsPrice}
+        price={props.smsData.length > 0  ? props.smsData[0].inboundSmsPrice : 0}
         text='Recieve' value={props.value}/>
         </Grid>
         </Grid>
@@ -70,7 +70,7 @@ function renderOutbound(props) {
         <Grid item xs={24} sm={12}>
         <MessagesInfoView
         countryCode={props.smsData.length > 0  && props.smsData[0].countryCode}
-        price={props.smsData.length > 0  && props.smsData[0].outboundSmsPrice}
+        price={props.smsData.length > 0  ? props.smsData[0].outboundSmsPrice : 0}
         text='Send' value={props.value} />
         </Grid>
         </Grid>
@@ -95,6 +95,7 @@ const mapStateToProps = state => ({
   classes: PropTypes.object.isRequired,
   smsData: state.SMSDataReducer.smsData,
   value: state.SMSTypeReducer.smsType,
+  smsCount: state.SMSCountReducer.smsCount,
 })
 
 const PaperSheetD = withStyles(styles, { withTheme: true })(

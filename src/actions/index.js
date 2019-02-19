@@ -39,9 +39,10 @@ function getSMSType(smsTypeObj) {
   }
 }
 
-export function calculatePricing() {
+export function calculatePricing(functype) {
   return (dispatch, getState) => {
     const state = getState();
+    const showPricing = state.CountryReducer.showPricing;
     const body = {
       "numberTypeCode": "PHN",
       "countryCode": state.CountryReducer.countryCode,
@@ -51,7 +52,11 @@ export function calculatePricing() {
         axios.post('http://localhost:4000/api/pricing/calculatepricing', body)
         .then(response => {
             dispatch(storesmsData(response.data));
+            if(functype === 'range') {
+              dispatch(togglePricing(showPricing));
+            } else {
             dispatch(togglePricing(true));
+            }
             if(!state.SMSTypeReducer.smsType) {
             dispatch(storeSMSType(0));
             }
